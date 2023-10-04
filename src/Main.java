@@ -22,38 +22,18 @@ public class Main {
 
             // Set the computer's strategy based on user input
             game.setComputerStrategy();
-            switch (userInput) {
-                case "rock":
-                    if (!game.getComputerStrategy().makeChoice().equals("rock")) {
-                        if (game.getComputerStrategy().makeChoice().equals("paper")) {
-                            game.setComputerScore(1);
-                        } else if (game.getComputerStrategy().makeChoice().equals("scissors")) {
-                            game.setUserScore(1);
-                        }
-                    }
-                    break;
-                case "paper":
-                    if (!game.getComputerStrategy().makeChoice().equals("paper")) {
-                        if (game.getComputerStrategy().makeChoice().equals("scissors")) {
-                            game.setComputerScore(1);
-                        } else if (game.getComputerStrategy().makeChoice().equals("rock")) {
-                            game.setUserScore(1);
-                        }
-                    }
-                    break;
-                case "scissors":
-                    if (!game.getComputerStrategy().makeChoice().equals("scissors")) {
-                        if (game.getComputerStrategy().makeChoice().equals("rock")) {
-                            game.setComputerScore(1);
-                        } else if (game.getComputerStrategy().makeChoice().equals("paper")) {
-                            game.setUserScore(1);
-                        }
-                    }
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please enter 'rock', 'paper', or 'scissors'.");
-                    continue; // Skip this iteration and prompt the user for input again
+
+            String computerChoice = game.getComputerStrategy().makeChoice();
+            if (!computerChoice.equals(userInput)) {
+                if ((computerChoice.equals("paper") && userInput.equals("rock")) ||
+                        (computerChoice.equals("scissors") && userInput.equals("paper")) ||
+                        (computerChoice.equals("rock") && userInput.equals("scissors"))) {
+                    game.setComputerScore(1);
+                } else {
+                    game.setUserScore(1);
+                }
             }
+
             // Play a round of the game
             game.playRound();
 
